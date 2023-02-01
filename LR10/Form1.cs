@@ -116,5 +116,20 @@ namespace LR9
             colorComboBox.Text = Utils.ConvertColorToString(carInfo.mColor);
             fioTextBox.Text = carInfo.mFio;
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if(!Utils.DeserializeCarList(mCarsList, @".\CarsList.txt"))
+            {
+                return;
+            }
+
+            UpdateListBox();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Utils.SerializeCarList(mCarsList, @".\CarsList.txt");
+        }
     }
 }

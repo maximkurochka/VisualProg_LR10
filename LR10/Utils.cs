@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LR9
 {
@@ -63,7 +66,6 @@ namespace LR9
             {
                 return Color.Grey;
             }
-
             return Color.Unknown;
         }
 
@@ -81,7 +83,35 @@ namespace LR9
                     return false;
                 }
             }
+            return true;
+        }
 
+        public static void SerializeCarList(List<Car> carsList, string filePath)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            {
+                carsList.ForEach(carInfo => formatter.Serialize(fileStream, carInfo));
+            }
+        }
+
+        public static bool DeserializeCarList(List<Car> carsList, string filePath)
+        {
+            try
+            {
+                IFormatter formatter = new BinaryFormatter();
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    while (fileStream.Position < fileStream.Length)
+                    {
+                        carsList.Add((Car)formatter.Deserialize(fileStream));
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                return false;
+            }
             return true;
         }
     }

@@ -16,6 +16,7 @@ namespace LR9
         Grey
     }
 
+    [Serializable]
     public class Car
     {
         public string mNumber { get; set; }
