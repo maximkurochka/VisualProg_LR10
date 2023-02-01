@@ -86,16 +86,16 @@ namespace LR9
             return true;
         }
 
-        public static void SerializeCarList(List<Car> carsList, string filePath)
+        public static void SerializeList<ObjectType>(List<ObjectType> list, string filePath)
         {
             IFormatter formatter = new BinaryFormatter();
             using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
-                carsList.ForEach(carInfo => formatter.Serialize(fileStream, carInfo));
+                list.ForEach(elem => formatter.Serialize(fileStream, elem));
             }
         }
 
-        public static bool DeserializeCarList(List<Car> carsList, string filePath)
+        public static bool DeserializeList<ObjectType>(List<ObjectType> list, string filePath)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace LR9
                 {
                     while (fileStream.Position < fileStream.Length)
                     {
-                        carsList.Add((Car)formatter.Deserialize(fileStream));
+                        list.Add((ObjectType)formatter.Deserialize(fileStream));
                     }
                 }
             }

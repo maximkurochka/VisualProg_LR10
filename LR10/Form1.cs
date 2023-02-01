@@ -119,7 +119,7 @@ namespace LR9
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if(!Utils.DeserializeCarList(mCarsList, @".\CarsList.txt"))
+            if(!Utils.DeserializeList<Car>(mCarsList, @".\CarsList.txt"))
             {
                 return;
             }
@@ -129,7 +129,7 @@ namespace LR9
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Utils.SerializeCarList(mCarsList, @".\CarsList.txt");
+            Utils.SerializeList<Car>(mCarsList, @".\CarsList.txt");
         }
     }
 }
