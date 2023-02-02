@@ -73,7 +73,8 @@ namespace LR9
             resources.GetString("colorComboBox.Items2"),
             resources.GetString("colorComboBox.Items3"),
             resources.GetString("colorComboBox.Items4"),
-            resources.GetString("colorComboBox.Items5")});
+            resources.GetString("colorComboBox.Items5"),
+            resources.GetString("colorComboBox.Items6")});
             resources.ApplyResources(this.colorComboBox, "colorComboBox");
             this.colorComboBox.Name = "colorComboBox";
             // 

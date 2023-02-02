@@ -123,13 +123,27 @@ namespace LR9
             {
                 return;
             }
-
             UpdateListBox();
+
+            List<string> colorsList = new List<string>();
+            if(!Utils.DeserializeList<string>(colorsList, @".\ColorList.txt"))
+            {
+                return;
+            }
+            colorComboBox.Items.AddRange(colorsList.ToArray());
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Utils.SerializeList<Car>(mCarsList, @".\CarsList.txt");
+
+            //convert ListBox collection to the List
+            List<string> colorsList = new List<string>();
+            foreach(var color in colorComboBox.Items)
+            {
+                colorsList.Add(color.ToString());
+            }
+            Utils.SerializeList<string>(colorsList, @".\ColorList.txt");
         }
     }
 }
